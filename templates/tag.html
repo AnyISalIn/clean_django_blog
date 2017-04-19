@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="/static/css/hux-blog.min.css">
+{% endblock %}
+
+{% block header_id %}tag-heading{% endblock %}
+{% block header_title %}Tags{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div id="tag_cloud" class="tags">
+                    {% for tag in tags %}
+                        <a href="#{{ tag.name }}" style="background-color: rgb(0, 133, 161);">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+                {% for tag in tags %}
+                    <div class="one-tag-list">
+                        <span class="fa fa-tag listing-seperator" id="{{ tag.name }}">
+                            <span class="tag-text">{{ tag.name }}</span>
+                        </span>
+                        {% for article in tag.article_set.all %}
+                            <div class="post-preview">
+                                <a href="{% url 'article:detail' article.id %}">
+                                    <h2 class="post-title">
+                                        {{ article.title }}
+                                    </h2>
+                                    <h3 class="post-subtitle">
+                                        {{ article.description }}
+                                    </h3>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <hr>
+            </div>
+{% endblock %}

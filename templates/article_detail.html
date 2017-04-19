@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="/static/css/hux-blog.min.css">
+{% endblock %}
+{% block page_header %}
+    <header class="intro-header" style="background-image: url('{% if article.background %}{{ article.background }}{% else %}{{ SITE_ARTICLE_BACKGROUND }}{% endif %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        {% if tags %}
+                            <div class="tags">
+                                {% for tag in tags %}
+                                    <a class="tag" href="{% url 'tag:home' %}#{{ tag.name }}"
+                                       title="{{ tag.name }}">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <h1>{{ article.title }}</h1>
+                        {% if article.description %}
+                            <h2 class="subheading">{{ article.description }}</h2>
+                        {% endif %}
+                        <span class="meta">Posted by <a
+                                href="#">{{ article.author.username }}</a> on {{ article.pub_date_format }}</span>
+                        {% if not user.is_anonymous and user.is_superuser or user == article.author %}
+                            <br>
+                            <span class="meta">
+                            <a href="{% url 'article:edit' article.id %}">Edit This Article</a>
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    {{ article.render_content | safe }}
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <!-- Code Javascript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}

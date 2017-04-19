@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="/static/css/hux-blog.min.css">
+{% endblock %}
+{% block page_header %}
+    <header class="intro-header" style="background-image: url('{{ SITE_ERROR_BACKGROUND }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading" id="tag-heading">
+                        <h1>{{ status_code }}</h1>
+                        <span class="subheading">{{ message }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script>document.body.classList.add('page-fullscreen');</script>
+{% endblock %}
