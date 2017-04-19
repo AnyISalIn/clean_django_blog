@@ -30,7 +30,7 @@ def detail(request, article_id):
 def edit(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     if article.author != request.user and not request.user.is_superuser:
-        return HttpResponseForbidden(render_to_response('error.html', {'status_code': 403, 'message': '你没有权限访问 :('}))
+        return HttpResponseForbidden(render_to_response('error.html', {'status_code': 403, 'message': 'Forbidden :('}))
     form = ArticleForm(request.POST or None, instance=article)
     if request.method == 'POST' and form.is_valid():
         form.save()

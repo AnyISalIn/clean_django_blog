@@ -35,7 +35,7 @@ class ArticleForm(forms.ModelForm):
         tags = self.cleaned_data.get('tag_list') or []
         if tags:
             if ' ' in tags:
-                raise forms.ValidationError('只能通过 , 分隔多个标签(不能包含空格)')
+                raise forms.ValidationError('multi tag like "python,django"(Cannot contain Spaces)')
             return tags.split(',')
         return tags
 
