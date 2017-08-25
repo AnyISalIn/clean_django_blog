@@ -5,7 +5,7 @@ from .models import Article
 from .tools import delete_no_article_tag, get_field_attrs
 
 
-class MyTagField(forms.MultipleChoiceField):
+class MyTagField(forms.Field):
     widget = forms.TextInput(get_field_attrs('Tags'))
 
     def clean(self, value):
